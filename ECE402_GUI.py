@@ -17,7 +17,7 @@ def ait():
     print(equation+"\n")
     input=N+"n"+M+"n"+k+"n"+equation
     print input
-    '''
+
     arduino=serial.Serial(15, 115200, timeout=.1)
     time.sleep(1)
 
@@ -42,7 +42,7 @@ def ait():
     print "printed equation\n"
 
     #data = arduino.readline()
-'''
+
 def close_window():
     top.destroy()
 
