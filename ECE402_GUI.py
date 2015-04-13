@@ -58,8 +58,6 @@ def ait():
                     tkMessageBox.FunctionName("Result", line)
                     break
 
-    #data = arduino.readline()
-
 def close_window():
     top.destroy()
 
