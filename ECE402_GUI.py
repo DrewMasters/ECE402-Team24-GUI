@@ -1,6 +1,7 @@
 __author__ = 'Drew Masters'
 
 from Tkinter import *
+import tkMessageBox
 import serial
 import time
 
@@ -15,8 +16,8 @@ def ait():
     print(M+"\n")
     print(k+"\n")
     print(equation+"\n")
-    input=N+"n"+M+"n"+k+"n"+equation
-    print input
+  #  input=N+"n"+M+"n"+k+"n"+equation
+  #  print input
 
     arduino=serial.Serial(15, 115200, timeout=.1)
     time.sleep(1)
@@ -40,6 +41,22 @@ def ait():
     print arduino.readline()[:-2]
     print arduino.readline()[:-2]
     print "printed equation\n"
+
+    line=[]
+    count = 0
+    while True:
+        for c in arduino.read():
+            line.append(c)
+            if c=='\n':
+                line.append(c)
+                print(line)
+                count+=1
+                if line == 'unsuccessful':
+                    tkMessageBox.FunctionName("Result", line)
+                    break
+                if count == (N+1):
+                    tkMessageBox.FunctionName("Result", line)
+                    break
 
     #data = arduino.readline()
 
