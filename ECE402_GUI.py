@@ -8,52 +8,36 @@ import time
 top = Tk()
 
 def ait():
-    N=E1.get()
-    M=E2.get()
-    k=E3.get()
-    equation=E4.get()
-    print(N+"\n")
-    print(M+"\n")
-    print(k+"\n")
-    print(equation+"\n")
-  #  input=N+"n"+M+"n"+k+"n"+equation
-  #  print input
+    #reads values from GUI
+    N=E1.get() #number of variables
+    M=E2.get() #number of clauses
+    k=E3.get() #k variable (number of variables per clause)
+    equation=E4.get() #equation being processed passed to arduino as string
 
-    arduino=serial.Serial(15, 115200, timeout=.1)
+    arduino=serial.Serial(15, 115200, timeout=.1) #starts serial connection
     time.sleep(1)
 
+    #writes variables to arduino
     arduino.write(N)
-    print arduino.readline()[:-2]
-    print arduino.readline()[:-2]
-    print "printed N\n"
-
     arduino.write(M)
-    print arduino.readline()[:-2]
-    print arduino.readline()[:-2]
-    print "printed M\n"
-
     arduino.write(k)
-    print arduino.readline()[:-2]
-    print arduino.readline()[:-2]
-    print "printed k\n"
-
     arduino.write(equation)
-    print arduino.readline()[:-2]
-    print arduino.readline()[:-2]
-    print "printed equation\n"
 
     line=[]
     count = 0
     while True:
+        #read one line a a time until finished
         for c in arduino.read():
             line.append(c)
             if c=='\n':
                 line.append(c)
                 print(line)
                 count+=1
+                #if line is unsuccessful print that to user
                 if line == 'unsuccessful':
                     tkMessageBox.FunctionName("Result", line)
                     break
+                #if line is successful continue reading until all variables are read
                 if count == (N+1):
                     tkMessageBox.FunctionName("Result", line)
                     break
